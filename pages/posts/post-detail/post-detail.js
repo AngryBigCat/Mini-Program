@@ -2,7 +2,9 @@
 var posts_data = require('../../../data/local_data.js');
 
 Page({
-  data: {},
+  data: {
+    isPlayingMusic: false
+  },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     var postId = options.id;
@@ -18,11 +20,37 @@ Page({
         collected: postsColletcted[postId]
       });
     } else {
-      var postsConllected = {};
+      var postsColletcted = {};
       postsColletcted[postId] = false;
-      wx.setStorageSync('posts_collected', postsConllected);
+      wx.setStorageSync('posts_collected', postsColletcted);
     }
+    let g_isPlayingMusic = getApp().globalData.g_isPlayingMusic;
+    let g_playingMusicId = getApp().globalData.g_playingMusicId;
+    if (g_isPlayingMusic && g_playingMusicId == postId) {
+      this.setData({
+        isPlayingMusic: true
+      });
+    }
+    this.setMusicMonitor();
   },
+  //音乐播放监听
+  setMusicMonitor() {
+    wx.onBackgroundAudioPlay(() => {
+      this.setData({
+        isPlayingMusic: true
+      });
+      getApp().globalData.g_isPlayingMusic = true;
+      getApp().globalData.g_playingMusicId = this.data.postId;
+    });
+    wx.onBackgroundAudioPause(() => {
+      this.setData({
+        isPlayingMusic: false
+      });
+      getApp().globalData.g_isPlayingMusic = false;
+      getApp().globalData.g_playingMusicId = null;
+    });
+  },
+  //点击收藏文章事件
   onCollectedTap: function (event) {
     var postsCollected = wx.getStorageSync('posts_collected');
     var postCollected = postsCollected[this.data.postId];
@@ -30,6 +58,27 @@ Page({
         postsCollected[this.data.postId] = postCollected;
         // this.showToast(postsCollected, postCollected);
         this.showModal(postsCollected, postCollected);
+  },
+  //
+  onMusicTap: function (event) {
+    let postId = this.data.postId;
+    let postData = posts_data.postList[postId].music;
+    if (this.data.isPlayingMusic) {
+      wx.pauseBackgroundAudio();
+      this.data.isPlayingMusic = false;
+      this.setData({
+        isPlayingMusic: false
+      });
+    } else {
+      wx.playBackgroundAudio({
+        dataUrl: postData.dataUrl,
+        title: postData.title,
+        coverImgUrl: postData.coverImgUrl
+      });
+      this.setData({
+        isPlayingMusic: true
+      });
+    }
   },
   getCollectedTapAsy: function () {
     
@@ -68,7 +117,7 @@ Page({
     var _this = this;
     wx.showModal({
       title: 'Hello World',
-      content: postCollected ? '是否取消收藏？' : '是否确认收藏？',
+      content: postCollected ? '是否确认收藏？' : '是否取消收藏？',
       success: function (res) {
         if (res.confirm) {
           _this.showToast(postsCollected, postCollected);
@@ -84,7 +133,7 @@ Page({
       collected: postCollected
     });
     wx.showToast({
-      title: postCollected ? '取消收藏' : '收藏成功',
+      title: postCollected ? '收藏成功' : '取消收藏',
       icon: 'success',
       duration: 1000,
     });
