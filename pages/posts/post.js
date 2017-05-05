@@ -9,10 +9,16 @@ Page({
       url: 'post-detail/post-detail?id=' + postId
     });
   },
+  onBannerTap(event) {
+    let bannerId = event.target.dataset.bannerId;
+    wx.navigateTo({
+      url: 'post-detail/post-detail?id=' + bannerId
+    });
+  },
   onLoad:function(options){
-    // 页面初始化 options为页面跳转所带来的参数
     this.setData({
-      posts: posts_data.postList
+      posts: posts_data.postList,
+      // visitTotal: wx.getStorageSync('visits_total')
     });
   },
   onReady:function(){

@@ -7,7 +7,7 @@ Page({
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    var postId = options.id;
+    var postId = parseInt(options.id);
     this.setData({
       postId: postId
     });
@@ -26,12 +26,32 @@ Page({
     }
     let g_isPlayingMusic = getApp().globalData.g_isPlayingMusic;
     let g_playingMusicId = getApp().globalData.g_playingMusicId;
-    if (g_isPlayingMusic && g_playingMusicId == postId) {
+    if (g_isPlayingMusic && g_playingMusicId === postId) {
       this.setData({
         isPlayingMusic: true
       });
     }
     this.setMusicMonitor();
+    this.visitTotal();
+  },
+  visitTotal() {
+    //统计浏览文章次数
+    //当页面初始化时，首先判断是否有浏览量缓存，如果有就从缓存中获取到然后到模板里
+    //如果没有 就初始化一个浏览量缓存，然后在做累计,获取到然后到模板里
+    let visits_total = wx.getStorageSync('visits_total');
+    let postId = this.data.postId;
+
+    if (visits_total) {
+      if (!visits_total[postId]) {
+        visits_total[postId] = {view: 1};
+      } else {
+        visits_total[postId]['view'] += 1;
+      }
+    } else {
+      visits_total = {};
+      visits_total[postId] = {view: 1};
+    }
+    wx.setStorageSync('visits_total', visits_total);
   },
   //音乐播放监听
   setMusicMonitor() {
