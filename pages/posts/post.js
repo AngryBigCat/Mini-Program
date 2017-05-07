@@ -28,7 +28,7 @@ Page({
     // 页面显示
   },
   onHide:function(){
-    // 页面隐藏
+    // 页面隐藏asddasdasdasdasdasd
   },
   onUnload:function(){
     // 页面关闭
