@@ -6,7 +6,9 @@ let util = require('../../../utils/util.js');
 Page({
   data: {
     navigationBarTitle: '',
-    scrollLowerUrl:''
+    scrollLowerUrl:'',
+    startData: 0
+
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -32,8 +34,9 @@ Page({
   },
 
   onScrollToLower(event) {
-    let nextUrl = this.data.scrollLowerUrl + '?start='+ 20 + '&count=20';
+    let nextUrl = this.data.scrollLowerUrl + '?start='+ this.data.startData + '&count=20';
 
+    console.log(nextUrl);
     util.http(nextUrl, this.processDoubanData);
   },
   
@@ -42,6 +45,7 @@ Page({
     this.setData({
       movies: movies
     });
+    this.data.startData += 20;
   },
 
   onReady: function () {
