@@ -9,8 +9,9 @@ Page({
     comingSoon: {},
     top250: {}
   },
+
+  // 页面初始化 options为页面跳转所带来的参数
   onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
     let inTheaters = app.globalData.doubanBase + '/v2/movie/in_theaters' + '?start=0&count=3';
     let comingSoon = app.globalData.doubanBase + '/v2/movie/coming_soon' + '?start=0&count=3';
     let top250 = app.globalData.doubanBase + '/v2/movie/top250' + '?start=0&count=3';
@@ -19,6 +20,7 @@ Page({
     this.getDoubanMoviesData(top250, 'top250', '豆瓣Top250');
   },
 
+  //请求豆瓣Api数据
   getDoubanMoviesData(url, setKey, setSlogan) {
     let _this = this;
     wx.request({
@@ -31,30 +33,22 @@ Page({
     })
   },
 
+  //处理豆瓣Api返回的数据
   processDoubanData(data, setKey, setSlogan) {
-    let movies = [];
-    for (let v of data.subjects) {
-      let title = v.title;
-      if (title.length > 8) {
-        title = title.substr(0, 7) + '...';
-      }
-      let temp = {
-        title: title,
-        coverageUrl: v.images.large,
-        average: v.rating.average,
-        movieId: v.id,
-        stars: util.converDoubanRatingStars(v.rating.stars)
-      }
-      movies.push(temp);
-    }
-
+    let movies = util.processMovieTitle(data);
     let readyData = {};
     readyData[setKey] = {
       movies: movies,
       slogan: setSlogan
     };
-
     this.setData(readyData);
+  },
 
-  }
+  //更多页面事件
+  onToMoreMovie(event) {
+    let category = event.currentTarget.dataset.category;
+    wx.navigateTo({
+      url: 'more-movie/more-movie?category=' + category,
+    })
+  },
 })

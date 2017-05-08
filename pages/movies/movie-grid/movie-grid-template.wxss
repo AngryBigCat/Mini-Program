@@ -1,0 +1,23 @@
+@import '../movie/movie-template.wxss';
+
+.scroll-container {
+  height: 1334rpx;
+}
+
+.grid-container {
+  display: flex;
+  /*flex-direction: row;
+  flex-wrap: wrap;*/
+  flex-flow: row wrap;
+  align-content: flex-start;
+  margin-top: 40rpx;
+}
+
+.movie-container {
+    padding: 0;
+    margin-bottom: 40rpx;
+    flex: 0 0 33.3333%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
