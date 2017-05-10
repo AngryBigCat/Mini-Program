@@ -1,0 +1,8 @@
+<!--pages/test/test.wxml-->
+<text>pages/test/test.wxml</text>
+<icon type="search" class="ss" size="80" />
+<view class="container">
+  <block wx:for="{{[1,2,3,4,5,6,7,8,9]}}">
+  <view class="element">asdasdasd</view>
+  </block>
+</view>

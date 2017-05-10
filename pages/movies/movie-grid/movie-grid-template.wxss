@@ -1,7 +1,7 @@
 @import '../movie/movie-template.wxss';
 
 .scroll-container {
-  height: 1334rpx;
+  height: 100vh;
 }
 
 .grid-container {

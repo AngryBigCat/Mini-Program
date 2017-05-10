@@ -12,3 +12,39 @@
     box-shadow: none;
     margin-bottom: 0;
 }
+
+.search-box {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    background: #f1f1f1;
+}
+.search {
+    width: 100rpx;
+    text-align: center;
+}
+.input {
+    width: 52vh;
+    font-size: 26rpx;
+    color: #333;
+}
+.input-placeholder {
+    color: #ccc;
+}
+.search-panel .grid-container {
+  display: flex;
+  /*flex-direction: row;
+  flex-wrap: wrap;*/
+  flex-flow: row wrap;
+  align-content: flex-start;
+  margin-top: 40rpx;
+}
+
+.search-panel .movie-container {
+    padding: 0;
+    margin-bottom: 40rpx;
+    flex: 0 0 33.3333%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

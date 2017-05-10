@@ -5,6 +5,7 @@ App({
     doubanBase: 'https://api.douban.com'
   }
 
+
   // onLaunch: function () {
   //   console.log('onLaunch');
   // },

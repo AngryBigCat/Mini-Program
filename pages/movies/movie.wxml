@@ -1,6 +1,15 @@
 <!--pages/movies/movie.wxml-->
+<import src="movie-grid/movie-grid-template.wxml" />
 <import src="movie-list/movie-list-template.wxml" />
-<view class="container">
+<view class="search-box">
+    <icon type="search" class="search" size="16" />
+    <input type="text" class="input" placeholder="搜索电影" bindfocus="onSearchFocus" bindblur="onSearchBlur" confirm-type="search" bindconfirm="onSearchConfirm" />
+    <icon wx:if="{{isSearchShow}}" type="cancel" size="20" catchtap="onCancelSearch" />
+</view>
+<view class="search-panel" wx:if="{{isSearchShow}}">
+    <template is="movie-grid-template" data="{{movies}}" />
+</view>
+<view wx:else class="container">
     <view class="movies-template-list">
         <template is="movie-list" data="{{...inTheaters}}"></template>
     </view>

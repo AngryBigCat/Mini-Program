@@ -1,0 +1,11 @@
+/* pages/test/test.wxss */
+
+.element {
+  height: 100px;
+  width: 100px;
+  background: red;
+}
+.ss {
+  height: 200px;
+  width: 200px;
+}

@@ -69,6 +69,12 @@ Page({
       getApp().globalData.g_isPlayingMusic = false;
       getApp().globalData.g_playingMusicId = null;
     });
+    wx.onBackgroundAudioStop(() => {
+      this.setData({
+        isPlayingMusic: false
+      });
+      getApp().globalData.g_playingMusicId = null;
+    });
   },
   //点击收藏文章事件
   onCollectedTap: function (event) {
@@ -99,12 +105,6 @@ Page({
         isPlayingMusic: true
       });
     }
-  },
-  getCollectedTapAsy: function () {
-    
-  },
-  getCollectedTapSyn: function () {
-
   },
   onShareTap: function () {
     var shareItem =  [
@@ -157,17 +157,5 @@ Page({
       icon: 'success',
       duration: 1000,
     });
-  },
-  onReady:function(){
-    // 页面渲染完成
-  },
-  onShow:function(){
-    // 页面显示
-  },
-  onHide:function(){
-    // 页面隐藏
-  },
-  onUnload:function(){
-    // 页面关闭
   }
 })
