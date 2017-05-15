@@ -18,73 +18,48 @@ Page({
     onLoad: function (options) {
         let movieId = options.id,
             movieUrl = app.globalData.doubanBase + '/v2/movie/subject/' + movieId;
-        util.http(movieUrl, data => {
-            this.setData({
-                movie: data
-            });
+        util.http(movieUrl, this.processMovieData);
+    },
+
+    processMovieData(data)
+    {
+        let movie = {
+            title: data.title,
+            countries: data.countries,
+            year: data.year,
+            love: data.wish_count,
+            review: data.reviews_count,
+            original_title: data.original_title,
+            stars: util.converDoubanRatingStars(data.rating.stars),
+            average: data.rating.average,
+            directors: data.directors[0].name,
+            casts:data.casts,
+            summary: data.summary,
+            image: data.images.large,
+            casts_name: this.processMovieCasts(data.casts, ' / '),
+            genres: data.genres.join('、')
+        };
+
+        this.setData({
+            movie
         });
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
+    processMovieCasts(casts, mode)
+    {
+        let name = '';
+        for (let v of casts) {
+            name += v.name + mode;
+        }
+        return name.substring(0, name.length - mode.length);
     },
 
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
+    onLargeImg(event)
+    {
+        let src = event.currentTarget.dataset.src;
+        wx.previewImage({
+            current: src,
+            urls: [src]
+        })
     }
 })

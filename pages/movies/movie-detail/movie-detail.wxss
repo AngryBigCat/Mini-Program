@@ -1,1 +1,109 @@
 /* pages/movies/movie-detail/movie-detail.wxss */
+@import '../stars/star-template.wxss';
+
+
+.detail-container {
+    display: flex;
+    flex-direction: column;
+}
+.backimg {
+    width: 100%;
+    height: 380rpx;
+    filter: blur(10px);
+    position: absolute;
+    z-index: -1;
+}
+.head {
+    display: flex;
+    flex-direction: column;
+    padding: 95rpx 30rpx;
+}
+.title {
+    font-size: 30rpx;
+    color: #fff;
+    letter-spacing: 5rpx;
+    margin-bottom: 30rpx;
+}
+.country {
+    color: #fff;
+    margin-bottom: 50rpx;
+}
+.love-comment {
+    color: #ccc;
+}
+.love {
+    margin-right: 30rpx;
+}
+.count {
+    color: red;
+}
+.cover {
+    width: 220rpx;
+    height: 280rpx;
+    position: absolute;
+    right: 30rpx;
+    top: 200rpx;
+}
+
+.intro {
+    padding: 45rpx 30rpx 40rpx;
+    border-bottom: 1px solid #ddd;
+}
+.intro-title {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 30rpx;
+}
+.intro-content > view {
+    margin-bottom: 5rpx;
+}
+.tag {
+    margin-right: 30rpx;
+    color: #aaa;
+}
+.scenario {
+    display: flex;
+    flex-direction: column;
+    padding: 40rpx 30rpx 35rpx;
+    border-bottom: 1px solid #ddd;
+}
+.scenario-title {
+    font-weight: 600;
+    margin-bottom: 30rpx;
+}
+.scenario-content {
+    line-height: 45rpx;
+    letter-spacing: 3rpx;
+    color: #666;
+}
+.actor {
+    padding: 40rpx 30rpx;
+}
+.actor-title {
+    font-weight: 600;
+    margin-bottom: 40rpx;
+    display: block;
+}
+
+.actor-scroll {
+    white-space: nowrap;
+}
+.actor-person {
+    width: 230rpx;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 30rpx;
+}
+.actor-person:last-child {
+    margin-right: 0;
+}
+.actor-img{
+    width: 230rpx;
+    height: 300rpx;
+    margin-bottom: 20rpx;
+}
+.intro-rating {
+    display: inline-flex;
+    padding-bottom: 5rpx;
+}

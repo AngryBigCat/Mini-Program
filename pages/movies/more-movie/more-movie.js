@@ -69,4 +69,11 @@ Page({
       title: this.data.navigationBarTitle,
     })
   },
+
+  onMovieDetail(event) {
+      let movieId = event.currentTarget.dataset.movieId;
+      wx.navigateTo({
+          url: '../movie-detail/movie-detail?id=' + movieId,
+      })
+  }
 })
